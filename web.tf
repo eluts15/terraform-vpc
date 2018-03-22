@@ -3,6 +3,13 @@ resource "aws_security_group" "web" {
   name = "vpc_web"
   description = "Allow incoming HTTP connections."
 
+    ingress {
+        from_port = 22
+        to_port   = 22
+        protocol  = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+
 
     ingress {
         from_port = 80
@@ -40,6 +47,7 @@ resource "aws_instance" "web-1" {
     ami = "ami-33ddc953"
     availability_zone = "us-west-1a"
     instance_type = "t2.micro"
+    key_name = "testing-terraform"
     vpc_security_group_ids = ["${aws_security_group.web.id}"]
     subnet_id = "${aws_subnet.us-west-1a-public.id}"
     associate_public_ip_address = true
