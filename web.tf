@@ -44,10 +44,10 @@ resource "aws_security_group" "web" {
 }
 
 resource "aws_instance" "web-1" {
-    ami = "ami-33ddc953"
+    ami = "ami-03adba63"
     availability_zone = "us-west-1a"
     instance_type = "t2.micro"
-    key_name = "testing-terraform"
+    key_name = "${var.aws_key_name}"
     vpc_security_group_ids = ["${aws_security_group.web.id}"]
     subnet_id = "${aws_subnet.us-west-1a-public.id}"
     associate_public_ip_address = true

@@ -48,9 +48,10 @@ resource "aws_security_group" "db" {
 }
 
 resource "aws_instance" "db-1" {
-    ami = "ami-33ddc953"
+    ami = "ami-03adba63"
     availability_zone = "us-west-1a"
     instance_type = "t2.micro"
+    key_name = "${var.aws_key_name}"
     vpc_security_group_ids = ["${aws_security_group.db.id}"]
     subnet_id = "${aws_subnet.us-west-1a-private.id}"
     source_dest_check = false

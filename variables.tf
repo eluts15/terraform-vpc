@@ -1,3 +1,6 @@
+variable "aws_key_path" {}
+variable "aws_key_name" {}
+
 # the aws region where resources are launched.
 variable "aws_region" {
   description = "EC2 Region for the VPC"

@@ -88,7 +88,7 @@ resource "aws_security_group" "nat" {
 ## Need to get an image specifically for NAT ##
 resource "aws_instance" "nat" {
   ami = "ami-2b2b296e" # special configured ami to utilize NAT.
-  key_name = "testing-terraform"
+  key_name = "${var.aws_key_name}"
   availability_zone = "us-west-1a"
   instance_type = "t2.micro"
   vpc_security_group_ids = ["${aws_security_group.nat.id}"]
