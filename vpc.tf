@@ -166,8 +166,6 @@ resource "aws_route_table_association" "us-west-1a-private" {
     route_table_id = "${aws_route_table.us-west-1a-private.id}"
 }
 
-
-
 resource "aws_network_acl" "public" {
   vpc_id = "${aws_vpc.default.id}"
 
@@ -233,4 +231,37 @@ resource "aws_network_acl" "public" {
   tags {
     Name = "public_acl"
   }
+}
+
+
+resource "aws_network_acl" "private" {
+  vpc_id = "${aws_vpc.default.id}"
+
+   ingress {
+    protocol   = "tcp"
+    rule_no    = 120
+    action     = "allow"
+    cidr_block = "10.0.0.0/24"
+    from_port  = 80
+    to_port    = 80
+  }
+
+  egress {
+    protocol   = "tcp"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "10.0.0.0/24"
+    from_port  = 80
+    to_port    = 80
+  }
+  
+  egress {
+    protocol   = "tcp"
+    rule_no    = 110
+    action     = "allow"
+    cidr_block = "10.0.0.0/24"
+    from_port  = 443
+    to_port    = 443
+  }
+  
 }
