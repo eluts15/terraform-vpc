@@ -165,3 +165,72 @@ resource "aws_route_table_association" "us-west-1a-private" {
     subnet_id = "${aws_subnet.us-west-1a-private.id}"
     route_table_id = "${aws_route_table.us-west-1a-private.id}"
 }
+
+
+
+resource "aws_network_acl" "public" {
+  vpc_id = "${aws_vpc.default.id}"
+
+  # inbound HTTP
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "10.0.0.0/24"
+    from_port  = 80
+    to_port    = 80
+  }
+  
+  # HTTPS 
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 110
+    action     = "allow"
+    cidr_block = "10.0.0.0/24"
+    from_port  = 443
+    to_port    = 443
+  }
+ 
+  # SSH
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 120
+    action     = "allow"
+    cidr_block = "10.0.0.0/24"
+    from_port  = 22
+    to_port    = 22
+  }
+
+ egress {
+    protocol   = "tcp"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "10.0.0.0/24"
+    from_port  = 80
+    to_port    = 80
+  }
+
+  egress {
+    protocol   = "tcp"
+    rule_no    = 110
+    action     = "allow"
+    cidr_block = "10.0.0.0/24"
+    from_port  = 443
+    to_port    = 443
+  }
+
+  # Allow to SSH into Bastion
+  egress {
+    protocol   = "tcp"
+    rule_no    = 150
+    action     = "allow"
+    cidr_block = "10.0.1.0/24"
+    from_port  = 22
+    to_port    = 22
+    
+  }
+
+  tags {
+    Name = "public_acl"
+  }
+}
