@@ -19,8 +19,8 @@ resource "aws_security_group" "db" {
       cidr_blocks = ["${var.vpc_cidr}"]
     }
 
-    ingress {
-      from_port = -1
+     ingress {
+      from_port = 8
       to_port = -1
       protocol = "icmp"
       cidr_blocks = ["${var.vpc_cidr}"]
@@ -37,6 +37,13 @@ resource "aws_security_group" "db" {
       from_port = 443
       to_port = 443
       protocol = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+
+    egress {
+      from_port = 8
+      to_port = 0
+      protocol = "icmp"
       cidr_blocks = ["0.0.0.0/0"]
     }
 
