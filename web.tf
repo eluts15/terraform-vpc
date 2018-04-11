@@ -44,7 +44,7 @@ resource "aws_security_group" "web" {
 }
 
 resource "aws_instance" "web-1" {
-    ami = "ami-ba485eda"
+    ami = "ami-03adba63"
     availability_zone = "us-west-1a"
     instance_type = "t2.micro"
     key_name = "${var.aws_key_name}"

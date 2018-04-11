@@ -1,2 +1,2 @@
-aws_key_path = "~/.ssh/testing-terraform.pem"
-aws_key_name = "testing-terraform"
+aws_key_path = "~/.ssh/infra-key.pem"
+aws_key_name = "infra-key"
